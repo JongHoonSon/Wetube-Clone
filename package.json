@@ -1,0 +1,27 @@
+{
+  "name": "wetube-clone",
+  "version": "1.0.0",
+  "description": "Video app clone",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JongHoonSon/Wetube-Clone.git"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node index.js"
+  },
+  "author": "JongHoon Son<roka1684@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JongHoonSon/Wetube-Clone/issues"
+  },
+  "homepage": "https://github.com/JongHoonSon/Wetube-Clone#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.15"
+  }
+}
