@@ -7,7 +7,7 @@
     "url": "git+https://github.com/JongHoonSon/Wetube-Clone.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node index.js"
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "author": "JongHoon Son<roka1684@gmail.com>",
   "license": "MIT",
@@ -16,7 +16,9 @@
   },
   "homepage": "https://github.com/JongHoonSon/Wetube-Clone#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
