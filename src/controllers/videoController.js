@@ -1,3 +1,5 @@
+import { redirect } from "express/lib/response";
+
 let videos = [
     {
         title: "Video #1",
@@ -39,4 +41,8 @@ export const getEdit = (req, res) => {
     return res.render("edit", {pageTitle: `Editing ${video.title}`, video});
 }
 export const postEdit = (req, res) => {
+    const { id } = req.params;
+    const { title } = req.body;
+    videos[id-1].title = title;
+    return res.redirect(`/videos/${id}`);
 }
