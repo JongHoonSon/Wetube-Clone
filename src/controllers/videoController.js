@@ -5,6 +5,7 @@ export const home = async(req, res) => {
     const videos = await Video.find({}).sort({ createdAt: "desc" });
     return res.render("home", {pageTitle: "Home", videos});
 };
+
 export const watch = async (req, res) => {
     const { id } = req.params;
     const video = await Video.findById(id);
@@ -13,6 +14,7 @@ export const watch = async (req, res) => {
     }
     return res.render("watch", {pageTitle: video.title, video });
 }
+
 export const getEdit = async (req, res) => {
     const { id } = req.params;
     const video = await Video.findById(id);
@@ -39,7 +41,7 @@ export const postEdit = async (req, res) => {
 
 export const getUpload = (req, res) => {
     return res.render("upload", { pageTitle: "Upload Video" });
-  };
+};
   
 export const postUpload = async (req, res) => {
     const { title, description, hashtags } = req.body;
@@ -59,4 +61,13 @@ export const deleteVideo = async (req, res) => {
     const { id } = req.params;
     await Video.findByIdAndDelete(id);
     return res.redirect("/");
+}
+
+export const search = (req, res) => {
+    const { keyword } = req.query;
+    if(keyword) {
+        // Search
+    }
+    console.log("should search for", keyword);
+    return res.render("search", {pageTitle: "Search"});
 }
