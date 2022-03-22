@@ -10,9 +10,13 @@ export const postJoin = async (req, res) => {
     if(exists) {
         return res.status(400).render("join", { pageTitle: "Join", errorMessage: "This username/email is already taken."});
     }
-    await User.create({
-        email, username, password, name, location,
-    })
+    try {
+        await User.create({
+            email, username, password, name, location,
+        })
+    } catch(error) {
+        return res.status(400).render("join", { pageTitle: "Join", errorMessage: error._message });
+    }
     return res.redirect("/login");
 }
 export const edit = (req, res) => res.send("Edit User");
