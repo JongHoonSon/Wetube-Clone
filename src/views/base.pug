@@ -12,7 +12,7 @@ html(lang="ko")
                         a(href="/") Home
                     if loggedIn   /* 모든 pug 파일은 res.locals 의 정보를 갖고 있으므로 res.locals.loggedIn 을 바로 호출할 수 있음 */
                         li
-                            a(href="/logout") Log Out   
+                            a(href="/users/logout") Log Out   
                         li
                             a(href="/my-profile") #{loggedInUser.name}의 Profile 
                     else
