@@ -29,7 +29,7 @@ export const postLogin = async (req, res) => {
     const { username, password } = req.body;
     const pageTitle = "Login";
     //check if account exists
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username, socialOnly: false });
     if(!user) {
         return res.status(400).render("login", { pageTitle, errorMessage: "An account with this username does not exists."})
     }
@@ -92,13 +92,36 @@ export const finishGithubLogin = async (req, res) => {
                 },
             })
         ).json();
-        const email = emailData.find(
+        console.log(emailData);
+        const emailObject = emailData.find(
             (email) => email.primary === true && email.verified === true
         );
-        if(!email) {
+        if(!emailObject) {
             return res.redirect("/login");
         }
-        // Something to do if email exist.
+        const existingUser = await User.findOne({ email: emailObject.email });
+        if(existingUser) {
+            req.session.loggedIn = true;
+            req.session.user = existingUser;
+            return res.redirect("/");
+        } else {
+            let user;
+            try {
+                    user = await User.create({
+                    email:emailObject.email,
+                    username:userData.login,
+                    password:"",
+                    name: userData.name ? userData.name : userData.login,
+                    location:userData.location,
+                    socialOnly: true,
+                });
+            } catch {
+
+            };
+            req.session.loggedIn = true;
+            req.session.user = user;
+            return res.redirect("/");
+        }
     } else {
         return res.redirect("/login");
     }
