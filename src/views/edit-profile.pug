@@ -1,0 +1,9 @@
+extends base
+
+block content
+    form(method="POST")
+        input(placeholder="Email", value=loggedInUser.email, name="email", type="text", required)
+        input(placeholder="Username", value=loggedInUser.username, name="username", type="text", required)
+        input(placeholder="Name", value=loggedInUser.name, name="name", type="text", required)
+        input(placeholder="Location", value=loggedInUser.location, name="location", type="text", required)
+        input(type="submit", value="Update Profile")
