@@ -1,4 +1,6 @@
 extends ../base.pug
+include ../mixins/video
 
 block content
-    h1 Hello
+    each potato in videos
+        +video(potato)
