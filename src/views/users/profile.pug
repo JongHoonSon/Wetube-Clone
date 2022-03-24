@@ -2,5 +2,5 @@ extends ../base.pug
 include ../mixins/video
 
 block content
-    each potato in videos
+    each potato in user.videos
         +video(potato)
