@@ -7,7 +7,8 @@
     "url": "git+https://github.com/JongHoonSon/Wetube-Clone.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js"
+    "dev": "nodemon --exec babel-node src/init.js",
+    "assets": "webpack --config webpack.config.js"
   },
   "author": "JongHoon Son<roka1684@gmail.com>",
   "license": "MIT",
@@ -31,6 +32,8 @@
     "@babel/core": "^7.17.5",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
   }
 }
