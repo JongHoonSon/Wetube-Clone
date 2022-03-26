@@ -1,4 +1,8 @@
 // video mixin
+video {
+  width: 640px;
+  height: 480px;
+}
 .video-mixin {
     .video-mixin__thumb {
       height: 140px;
