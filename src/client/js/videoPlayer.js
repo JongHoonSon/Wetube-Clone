@@ -5,6 +5,7 @@ const time = document.getElementById("time");
 const volumeRange = document.getElementById("volume");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
+const timeline = document.getElementById("timeline");
 
 // console.log(video, play, mute, time, volume);
 
@@ -46,10 +47,17 @@ const formatTime = (seconds) =>
 
 const handleLoadedMetaData = (event) => {
     totalTime.innerText = formatTime(Math.floor(video.duration));  // loadmetadata 를 다루는 핸들러 안에서만 사용 가능함.
+    timeline.max = Math.floor(video.duration);
 }
 
 const handleTimeUpdate = (event) => {
     currentTime.innerText = formatTime(Math.floor(video.currentTime));
+    timeline.value = Math.floor(video.currentTime);
+}
+
+const handleTimelineChange = (event) => {
+    const { target: { value } } = event;
+    video.currentTime = value;
 }
 
 playBtn.addEventListener("click", handlePlayClick);
@@ -57,3 +65,4 @@ muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetaData)
 video.addEventListener("timeupdate", handleTimeUpdate)
+timeline.addEventListener("input", handleTimelineChange);
