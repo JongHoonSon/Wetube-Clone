@@ -41,12 +41,15 @@ const handleVolumeChange = (event) => {
     video.volume = value;
 }
 
+const formatTime = (seconds) =>
+    new Date(seconds * 1000).toISOString().substr(11, 8);
+
 const handleLoadedMetaData = (event) => {
-    totalTime.innerText = Math.floor(video.duration);  // loadmetadata 를 다루는 핸들러 안에서만 사용 가능함.
+    totalTime.innerText = formatTime(Math.floor(video.duration));  // loadmetadata 를 다루는 핸들러 안에서만 사용 가능함.
 }
 
 const handleTimeUpdate = (event) => {
-    currentTime.innerText = Math.floor(video.currentTime);
+    currentTime.innerText = formatTime(Math.floor(video.currentTime));
 }
 
 playBtn.addEventListener("click", handlePlayClick);
