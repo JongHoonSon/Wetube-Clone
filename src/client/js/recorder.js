@@ -1,4 +1,4 @@
-const startBtn = document.getElementById("startBtn");
+const actionBtn = document.getElementById("actionBtn");
 const video = document.getElementById("preview");
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
@@ -21,6 +21,9 @@ const downloadFile = (fileUrl, fileName) => {
 }
 
 const handleDownload = async () => {
+    actionBtn.innerText = "Transcording...";
+    actionBtn.removeEventListener("click", handleDownload);
+    actionBtn.disabled = true;
 
     const ffmpeg = createFFmpeg({
         log: true
@@ -52,7 +55,7 @@ const handleDownload = async () => {
 
     downloadFile(mp4Url, "MyRecording.mp4");
     downloadFile(thumbUrl, "MyThumbnail.jpg");
-    
+
     // 작업이 끝났으므로 해당 파일, URL을 삭제하여 브라우저가 빨리 동작할 수 있도록 함.
     // 메모리 관>리 차원
 
@@ -66,17 +69,17 @@ const handleDownload = async () => {
 }
 
 const handleStop = () => {
-    startBtn.innerText = "Download recorded video";
-    startBtn.removeEventListener("click", handleStop);
-    startBtn.addEventListener("click", handleDownload);
+    actionBtn.innerText = "Download recorded video";
+    actionBtn.removeEventListener("click", handleStop);
+    actionBtn.addEventListener("click", handleDownload);
 
     recorder.stop();
 }
 
 const handleStart = () => {
-    startBtn.innerText = "Stop Recording";
-    startBtn.removeEventListener("click", handleStart);
-    startBtn.addEventListener("click", handleStop);
+    actionBtn.innerText = "Stop Recording";
+    actionBtn.removeEventListener("click", handleStart);
+    actionBtn.addEventListener("click", handleStop);
 
     recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
     recorder.ondataavailable = (e) => {
@@ -100,4 +103,4 @@ const init = async () => {
 
 init();
 
-startBtn.addEventListener("click", handleStart);
+actionBtn.addEventListener("click", handleStart);
