@@ -1,3 +1,5 @@
+include mixins/message
+
 doctype html
 html(lang="ko")
     head
@@ -5,10 +7,13 @@ html(lang="ko")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
         link(rel="stylesheet" href="/static/css/styles.css")
     body 
-        if messages.error       // req.flash 로 생성된 res.locals.messages 는 한번 보여준 후에는
-            span=messages.error // 캐시가 삭제되어 더 보여주지 않는다. (=일회성이다.)
+        <!-- req.flash 로 생성된 res.locals.messages 는 한번 보여준 후에는 캐시가 삭제되어 더 보여주지 않는다. (=일회성이다.) --!>
+        if messages.error                     
+            +message("error", messages.error)
         if messages.info
-            span=messages.info
+            +message("info", messages.info)
+        if messages.success
+            +message("success", messages.success)
         include partials/header.pug      
         main
             block content
