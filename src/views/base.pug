@@ -5,8 +5,8 @@ html(lang="ko")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
         link(rel="stylesheet" href="/static/css/styles.css")
     body 
-        if messages.error
-            span=messages.error
+        if messages.error       // req.flash 로 생성된 res.locals.messages 는 한번 보여준 후에는
+            span=messages.error // 캐시가 삭제되어 더 보여주지 않는다. (=일회성이다.)
         if messages.info
             span=messages.info
         include partials/header.pug      
