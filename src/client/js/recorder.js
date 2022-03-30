@@ -17,9 +17,18 @@ const handleDownload = async () => {
 
     await ffmpeg.run("-i", "recording.webm", "-r", "60", "output.mp4"); // -i : encording, -r : frame 설정
 
+    const mp4File = ffmpeg.FS("readFile", "output.mp4");
+
+    console.log(mp4File);   // 실제 파일, 수정만 가능
+    console.log(mp4File.buffer); // 실제 파일, raw data(binary data)이용 가능, 버퍼를 사용해야함
+
+    const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
+
+    const mp4Url = URL.createObjectURL(mp4Blob);
+
     const a = document.createElement("a");
-    a.href = videoFile;
-    a.download = "MyRecording.webm";
+    a.href = mp4Url;
+    a.download = "MyRecording.mp4";
     document.body.appendChild(a);
     a.click();
 }
