@@ -66,6 +66,10 @@ const handleDownload = async () => {
     URL.revokeObjectURL(videoFile);
     URL.revokeObjectURL(mp4Url);
     URL.revokeObjectURL(thumbUrl);
+
+    actionBtn.disabled = false;
+    actionBtn.innerText = "Recording Again";
+    actionBtn.addEventListener("click", handleStart);
 }
 
 const handleStop = () => {
