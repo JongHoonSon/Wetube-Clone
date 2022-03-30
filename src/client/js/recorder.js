@@ -26,7 +26,7 @@ const handleStart = () => {
     startBtn.removeEventListener("click", handleStart);
     startBtn.addEventListener("click", handleStop);
 
-    recorder = new MediaRecorder(stream);
+    recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
     recorder.ondataavailable = (e) => {
         videoFile = URL.createObjectURL(e.data); // 녹화된 영상의 메모리 상에서의 위치를 가르키고 있는 URL
         video.srcObject = null;
