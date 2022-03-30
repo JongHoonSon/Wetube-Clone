@@ -11,7 +11,7 @@ const handleDownload = async () => {
     const ffmpeg = createFFmpeg({
         log: true
     });
-    await ffmpeg.load();
+    await ffmpeg.load(); // 유저 사이드에서 ffmpeg가 load될 때까지 기다림
 
     ffmpeg.FS("writeFile", "recording.webm", await fetchFile(videoFile));
 
@@ -29,6 +29,7 @@ const handleDownload = async () => {
     // console.log(mp4File);   // 실제 파일, 수정만 가능
     // console.log(mp4File.buffer); // 실제 파일, raw data(binary data)이용 가능, 버퍼를 사용해야함
 
+    // binary data 로 Blob 생성
     const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
     const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
 
@@ -46,6 +47,17 @@ const handleDownload = async () => {
     thumbA.download = "MyThumbnail.jpg";
     document.body.appendChild(thumbA);
     thumbA.click();
+
+    // 작업이 끝났으므로 해당 파일, URL을 삭제하여 브라우저가 빨리 동작할 수 있도록 함.
+    // 메모리 관리 차원
+
+    ffmpeg.FS("unlink", "recording.webm");
+    ffmpeg.FS("unlink", "output.mp4");
+    ffmpeg.FS("unlink", "thumbnail.mp4");
+
+    URL.revokeObjectURL(videoFile);
+    URL.revokeObjectURL(mp4Url);
+    URL.revokeObjectURL(thumbUrl);
 }
 
 const handleStop = () => {
