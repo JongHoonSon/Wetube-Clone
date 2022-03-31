@@ -153,5 +153,5 @@ export const createComment = async (req, res) => {
 
     console.log(comment);
     
-    return res.sendStatus(201);
+    return res.status(201).json({ newCommentId: comment._id });
   };
