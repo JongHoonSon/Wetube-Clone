@@ -17,6 +17,7 @@ const handleSubmit = (event) => {
     },                                    // express야 이거 바꿔줘 ~ 근데 내가 미리 JSON 형태로 바꿔놨어~
     body: JSON.stringify({ text }),
   });
+  textarea.value = "";
 };
 
 if (form) {
