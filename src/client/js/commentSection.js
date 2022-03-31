@@ -10,9 +10,12 @@ const addComment = (text, id) => {
   icon.className = "fas fa-comment";
   const span = document.createElement("span");
   span.innerText = `${text}`
+  const deleteBtn = document.createElement("button");
+  deleteBtn.innerText = "X";
   
   newComment.appendChild(icon);
   newComment.appendChild(span);
+  newComment.appendChild(deleteBtn);
 
   videoComments.prepend(newComment);
 }
