@@ -1,6 +1,7 @@
 import User from "../models/User";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
+import { async } from "regenerator-runtime";
 
 
 export const home = async(req, res) => {
@@ -151,7 +152,51 @@ export const createComment = async (req, res) => {
     video.comments.push(comment._id);
     video.save();
 
+    const commentUser = await User.findById(user._id);
+
+    commentUser.comments.push(comment._id);
+    commentUser.save();
+
     console.log(comment);
     
     return res.status(201).json({ newCommentId: comment._id });
-  };
+};
+
+export const deleteComment = async (req, res) => {
+    const { user } = req.session;
+    const { id } = req.params;
+
+    const comment = await Comment.findById(id).populate("owner");
+
+    if(!comment) {
+        return res.sendStatus(404);
+    }
+
+    const commentOwnerId = String(comment.owner._id);
+    const commentVideoId = String(comment.video._id);
+
+    if(commentOwnerId !== user._id) {
+        return res.sendStatus(403);
+    }
+
+    // Comment 삭제
+    await Comment.findByIdAndDelete(id);
+    
+    // User의 comments에서 삭제
+    const commentOwner = await User.findById(commentOwnerId);
+    commentOwner.comments = commentOwner.comments.filter(function(item) {
+        return String(item) !== id; 
+        // return String(item) === "1"; 
+    });
+    commentOwner.save();
+    
+    // Video의 comments에서 삭제
+    const commentVideo = await Video.findById(commentVideoId);
+    commentVideo.comments = commentVideo.comments.filter(function(item) {
+        return String(item) !== id; 
+        // return String(item) === "1"; 
+    });
+    commentVideo.save();
+
+    return res.sendStatus(200);
+}
