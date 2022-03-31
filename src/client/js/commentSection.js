@@ -1,9 +1,10 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 
-const addComment = (text) => {
+const addComment = (text, id) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
+  newComment.dataset.id = id;
   newComment.className = "video__comment";
   const icon = document.createElement("i");
   icon.className = "fas fa-comment";
@@ -25,7 +26,7 @@ const handleSubmit = async (event) => {
   if (text === "") {
     return ;
   }
-  const { status } = await fetch(`/api/videos/${videoId}/comment`, {
+  const response = await fetch(`/api/videos/${videoId}/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json", // express 에게 POST에 담긴 내용이 JSON 형태의 String 임을 headers에서 전달함
@@ -33,12 +34,12 @@ const handleSubmit = async (event) => {
     body: JSON.stringify({ text }),
   });
 
-  if(status === 201) {
-    addComment(text);
+  if(response.status === 201) {
+    // response 에서 json object 추출
+    const { newCommentId } = await response.json();
+    textarea.value = "";
+    addComment(text, newCommentId);
   }
-
-
-  textarea.value = "";
 };
 
 if (form) {
