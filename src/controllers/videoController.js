@@ -1,5 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 
 
 export const home = async(req, res) => {
@@ -125,8 +126,28 @@ export const registerView = async (req, res) => {
     return res.sendStatus(200);
 }
 
-export const createComment = (req, res) => {
-    console.log(req.params);
-    console.log(req.body);
-    return res.end();
+export const createComment = async (req, res) => {
+    // 누군가 POST 요청을 할 경우, 쿠키에 유저 정보가 담겨서 같이 오고,
+    // 우리는 session 미들웨어를 사용하기 때문에 그 정보를 req.session.user 에서 찾을 수 있다.
+    const { 
+        session: { user },
+        body: { text },
+        params: { id }
+    } = req;
+
+    const video = await Video.findById(id);
+
+    if(!video) {
+        return res.sendStatus(404);
+    }
+
+    const comment = await Comment.create({
+        text,
+        owner: user._id,
+        video: id
+    })
+
+    console.log(comment);
+    
+    return res.sendStatus(201);
   };
