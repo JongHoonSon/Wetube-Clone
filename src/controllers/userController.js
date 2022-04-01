@@ -24,7 +24,8 @@ export const postJoin = async (req, res) => {
     return res.redirect("/login");
 }
 
-export const getLogin = (req, res) => res.render("Login", { pageTitle: "Login" });
+export const getLogin = (req, res) => res.render("join", { pageTitle: "Join" });
+// export const getLogin = (req, res) => res.render("Login", { pageTitle: "Login" });
 
 export const postLogin = async (req, res) => {
     const { username, password } = req.body;
