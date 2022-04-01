@@ -18,7 +18,7 @@ header
                             span
                         else
                             if loggedInUser.avatarUrl
-                                img.header__avatar(src=loggedInUser.avatarUrl, crossorigin="use-credentials")
+                                img.header__avatar(src=loggedInUser.avatarUrl, crossorigin)
             else
                 li
                     a(href="/login") Login
