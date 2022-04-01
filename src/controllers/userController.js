@@ -154,8 +154,9 @@ export const postEdit = async (req, res) => {
             return res.status(400).render("edit-profile", { pageTitle: "Edit profile", errorMessage: "This username is already taken."});
         }
     }
+    const isHeroku = process.env.NODE_ENV === "production";
     const updatedUser = await User.findByIdAndUpdate(_id, {
-        avatarUrl: file ? file.location : avataUrl, name, email, username, location
+        avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl, name, email, username, location
     }, {new: true});
     req.session.user = updatedUser;
     return res.redirect("/users/edit");
