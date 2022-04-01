@@ -1,7 +1,10 @@
 mixin video(video)
     a(href=`/videos/${video.id}`).video-mixin
         div.video-mixin__thumb
-            img(src=video.thumbUrl crossorigin style="width:100%;height:100%;border-radius:5px")
+            if(isHeroku)
+                img(src=video.thumbUrl crossorigin style="width:100%;height:100%;border-radius:5px")
+            else
+                img(src='/' + video.thumbUrl crossorigin style="width:100%;height:100%;border-radius:5px")
         div.video-mixin__data
             span.video-mixin__title=video.title
             div.video-mixin__meta
