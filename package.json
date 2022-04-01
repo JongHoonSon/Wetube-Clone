@@ -9,8 +9,9 @@
   "scripts": {
     "start": "node build/init.js",
     "build:server":"babel src -d build",
+    "build:assets":"webpack --mode=production",
     "dev:server": "nodemon",
-    "dev:assets": "webpack --config webpack.config.js"
+    "dev:assets": "webpack --mode=development -w"
   },
   "author": "JongHoon Son<roka1684@gmail.com>",
   "license": "MIT",
