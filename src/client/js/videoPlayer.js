@@ -123,7 +123,7 @@ const handleEnded = (event) => {
   });
 }
 
-handleLoadedData();
+handleLoadedMetadata();
 
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
