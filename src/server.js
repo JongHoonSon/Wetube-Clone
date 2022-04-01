@@ -16,6 +16,11 @@ console.log(process.cwd());
 
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views")
+app.use((req, res, next) => {
+    res.header("Cross-Origin-Embedder-Policy", "require-corp");
+    res.header("Cross-Origin-Opener-Policy", "same-origin");
+    next();
+  });
 app.use(logger);
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()); // 이 미들웨어는 text 형태의 post를 받아서 req.body에 json 형태로 바꿔서 넣음
