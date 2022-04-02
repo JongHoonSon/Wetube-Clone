@@ -9,7 +9,7 @@ block content
             img(src='/' + user.avatarUrl, crossorigin).avatar
         h3=user.name
     div.video-grid
-        each video in user.videos
+        each video in user.videos.reverse()
             +video(video)
         else
             span.empty__message No videos found
