@@ -166,7 +166,8 @@ export const postEdit = async (req, res) => {
         avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl, name, email, username, location
     }, {new: true});
     req.session.user = updatedUser;
-    return res.redirect("/users/edit");
+    req.flash("success", "Changes saved.")
+    return res.redirect(`/users/${_id}`);
 };
 
 export const getChangePassword = (req, res) => {
