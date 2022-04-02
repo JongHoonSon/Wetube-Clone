@@ -172,7 +172,7 @@ export const postUserEdit = async (req, res) => {
         const delAvatarFileName = delAvatarUrl[delAvatarUrl.length - 1];
         const params = {
             Bucket: 'jh-wetube',
-            key: 'images/' + delAvatarFileName
+            Key: 'images/' + delAvatarFileName
         }
         s3.deleteObject(params, function(err, data) {
             if(err) {
