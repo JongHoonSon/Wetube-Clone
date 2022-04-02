@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import User from "../models/User"
 import Video from "../models/Video"
 
-export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
+export const getJoin = (req, res) => res.render("users/join", { pageTitle: "Join" });
 
 export const postJoin = async (req, res) => {
     const { email, username, password, password2, name, location } = req.body;
@@ -24,7 +24,7 @@ export const postJoin = async (req, res) => {
     return res.redirect("/login");
 }
 
-export const getLogin = (req, res) => res.render("login", { pageTitle: "Login" });
+export const getLogin = (req, res) => res.render("users/login", { pageTitle: "Login" });
 // 
 export const postLogin = async (req, res) => {
     const { username, password } = req.body;
@@ -32,13 +32,13 @@ export const postLogin = async (req, res) => {
     //check if account exists
     const user = await User.findOne({ username, socialOnly: false });
     if(!user) {
-        return res.status(400).render("login", { pageTitle, errorMessage: "An account with this username does not exists."})
+        return res.status(400).render("users/login", { pageTitle, errorMessage: "An account with this username does not exists."})
     }
     
     //check if password correct
     const ok = await bcrypt.compare(password, user.password);
     if(!ok) {
-        return res.status(400).render("login", { pageTitle, errorMessage: "Wrong password"})
+        return res.status(400).render("users/login", { pageTitle, errorMessage: "Wrong password"})
     }
     req.session.loggedIn = true;
     req.session.user = user;
@@ -131,7 +131,7 @@ export const logout = (req, res) => {
 
 export const getEdit = (req, res) => {
 
-    return res.render("edit-profile", { pageTitle: "Edit Profile" });
+    return res.render("users/edit-profile", { pageTitle: "Edit Profile" });
 };
 
 export const postEdit = async (req, res) => {
@@ -145,13 +145,13 @@ export const postEdit = async (req, res) => {
     if(email !== req.session.user.email) {
         const exists = await User.exists({email});
         if(exists) {
-            return res.status(400).render("edit-profile", { pageTitle: "Edit profile", errorMessage: "This email is already taken."});
+            return res.status(400).render("users/edit-profile", { pageTitle: "Edit profile", errorMessage: "This email is already taken."});
         }
     }
     if(username !== req.session.user.username) {
         const exists = await User.exists({username});
         if(exists) {
-            return res.status(400).render("edit-profile", { pageTitle: "Edit profile", errorMessage: "This username is already taken."});
+            return res.status(400).render("users/edit-profile", { pageTitle: "Edit profile", errorMessage: "This username is already taken."});
         }
     }
     const isHeroku = process.env.NODE_ENV === "production";

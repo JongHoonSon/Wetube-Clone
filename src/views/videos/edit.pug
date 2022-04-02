@@ -1,8 +1,8 @@
-extends base.pug
+extends ../base.pug
 
 block content
     h4 Update video
-    form(method="POST")
+    form(method="POST", enctype="multipart/form-data")
         input(placeholder="Title", required, maxLength=80, type="text", value=video.title, name="title")
         input(placeholder="Description", required, minLength=20, type="text", value=video.description, name="description")
         input(placeholder="Hashtags, separated by comma", required, type="text", value=video.hashtags.join(), name="hashtags")
