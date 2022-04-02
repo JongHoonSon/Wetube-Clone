@@ -3,7 +3,7 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 // 
 // API KEY 를 이용해 S3 객체 생성
-const s3 = new aws.S3({
+export const s3 = new aws.S3({
     credentials: {
         accessKeyId: process.env.AWS_ID,
         secretAccessKey: process.env.AWS_SECRET,

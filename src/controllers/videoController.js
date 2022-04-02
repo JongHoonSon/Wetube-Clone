@@ -2,6 +2,8 @@ import User from "../models/User";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
 import { async } from "regenerator-runtime";
+import { S3 } from "aws-sdk";
+import { s3 } from "../middlewares";
 
 
 export const home = async(req, res) => {
@@ -113,6 +115,27 @@ export const deleteVideo = async (req, res) => {
         console.log(String(commentObject));
         await Comment.findByIdAndDelete(String(commentObject));
     });
+
+    if(isHeroku) {
+        const videoUrl = video.fileUrl.split('/');
+        console.log("videoUrl", videoUrl);
+        const delFileName = url[url.length - 1];
+        console.log("delFileName", delFileName);
+        const params = {
+            Bucket: 'jh-wetube/videos',
+            key: delFileName
+        }
+        s3.deleteObject(params, function(err, data) {
+            if(err) {
+                console.log('aws video delete error');
+                console.log(err, err.stack);
+                return res.redirect('/');
+            } else {
+                console.log('aws video delete success' + data);
+            }
+        })
+    }
+    
     await Video.findByIdAndDelete(id);
     return res.redirect("/");
 }
