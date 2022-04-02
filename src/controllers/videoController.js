@@ -1,5 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 import { async } from "regenerator-runtime";
 
 
@@ -97,7 +98,7 @@ export const deleteVideo = async (req, res) => {
     const {
         user: { _id }
     } = req.session;
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate();
     if(!video) {
         req.flash("error", "Video not found.");
         return res.status(404).render("404", { pageTitle: "Video not found." });
@@ -106,6 +107,12 @@ export const deleteVideo = async (req, res) => {
         req.flash("error", "You are not the owner of the video.");
         return res.status(403).redirect("/");
     }
+    console.log(video.comments);
+    const commentList = video.comments;
+    commentList.forEach(async commentObject => {
+        console.log(String(commentObject));
+        await Comment.findByIdAndDelete(String(commentObject));
+    });
     await Video.findByIdAndDelete(id);
     return res.redirect("/");
 }
