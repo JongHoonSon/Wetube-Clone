@@ -8,7 +8,8 @@ module.exports = {
         main: BASE_JS_PATH + "main.js",
         videoPlayer: BASE_JS_PATH + "videoPlayer.js",
         recorder: BASE_JS_PATH + "recorder.js",
-        commentSection: BASE_JS_PATH + "commentSection.js"
+        commentSection: BASE_JS_PATH + "commentSection.js",
+        profile: BASE_JS_PATH + "profile.js"
     },
     plugins: [new MiniCssExtractPlugin({
         filename: "css/styles.css",

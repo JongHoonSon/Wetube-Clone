@@ -6,12 +6,12 @@ block content
     
     div.profile__data
         if(isHeroku)
-            img(src=loggedInUser.avatarUrl, crossorigin).avatar
+            img(src=loggedInUser.avatarUrl, crossorigin).avatar#preview
         else
-            img(src='/' + loggedInUser.avatarUrl, crossorigin).avatar
+            img(src='/' + loggedInUser.avatarUrl, crossorigin).avatar#preview
     form(method="POST", enctype="multipart/form-data")
         label(for="avatar") Profile Image
-        input(type="file", id="avatar", name="avatar", accept="image/*")
+        input(type="file", id="avatar", name="avatar", data-id=loggedInUser.avatarUrl accept="image/*").avatarUpload
         label(for="email") Email
         input(placeholder="Email", value=loggedInUser.email, id="email", name="email", type="text", required)
         label(for="username") Username
@@ -23,4 +23,7 @@ block content
         input(type="submit", value="Update Profile")
         if !loggedInUser.socialOnly
             div.edit-profile__password
-                a(href="change-password") Change Password &rarr; 
+                a(href="change-password") Change Password &rarr;
+
+block scripts
+    script(src="/static/js/profile.js")
