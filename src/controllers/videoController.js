@@ -116,10 +116,12 @@ export const deleteVideo = async (req, res) => {
         await Comment.findByIdAndDelete(String(commentObject));
     });
 
+    console.log("res.locals.isHeroku", res.locals.isHeroku);
+
     if(res.locals.isHeroku) {
         const videoUrl = video.fileUrl.split('/');
         console.log("videoUrl", videoUrl);
-        const delFileName = url[url.length - 1];
+        const delFileName = videoUrl[videoUrl.length - 1];
         console.log("delFileName", delFileName);
         const params = {
             Bucket: 'jh-wetube/videos',
