@@ -1,12 +1,22 @@
 mixin video(video)
-    a(href=`/videos/${video.id}`).video-mixin
+    span.video-mixin
         div.video-mixin__thumb
             if(isHeroku)
-                img(src=video.thumbUrl crossorigin style="width:100%;height:100%;border-radius:5px")
+                a(href=`/videos/${video.id}`)
+                    img(src=video.thumbUrl crossorigin style="width:100%;height:100%;border-radius:5px")
+                    
             else
-                img(src='/' + video.thumbUrl crossorigin style="width:100%;height:100%;border-radius:5px")
+                a(href=`/videos/${video.id}`)
+                    img(src='/' + video.thumbUrl crossorigin style="width:100%;height:100%;border-radius:5px")
         div.video-mixin__data
-            span.video-mixin__title=video.title
+            a(href=`/videos/${video.id}`)
+                span.video-mixin__title=video.title
+            div.video-mixin__owner
+                div
+                    img(src=video.owner.avatarUrl onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`).video-mixin__owner__avatar
+                span.video-mixin__owner__name(onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`)=video.owner.name
             div.video-mixin__meta
-                span #{video.owner.name} • 
-                span #{video.meta.views} 회 
+                span#views 조회수 #{video.meta.views}회 • 
+                span(data-id=video.createdAt)#uploadDate
+
+    script(src="/static/js/main.js")
