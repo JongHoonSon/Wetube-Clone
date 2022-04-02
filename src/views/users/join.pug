@@ -4,12 +4,18 @@ block content
     if(errorMessage)
         span=errorMessage
     form(method="POST")
-        input(placeholder="Email", name="email", type="text", required)
-        input(placeholder="Username", name="username", type="text", required)
-        input(placeholder="Password", name="password", type="text", required)
-        input(placeholder="Cornfirm Password", name="password2", type="text", required)
-        input(placeholder="Name", name="name", type="text", required)
-        input(placeholder="Location", name="location", type="text", required)
+        label(for="username") Username
+        input(id="username", name="username", type="text", required)
+        label(for="password") Password
+        input(id="password", name="password", type="text", required)
+        label(for="password2") Cornfirm Password
+        input(id="password2", name="password2", type="text", required)
+        label(for="name") Name
+        input(id="name", name="name", type="text", required)
+        label(for="email") Email
+        input(id="email", name="email", type="text", required)
+        label(for="location") Location
+        input(id="location", name="location", type="text", required)
         input(type="submit", value="Join")
 
         include ../partials/social-login
