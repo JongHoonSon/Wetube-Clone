@@ -116,7 +116,7 @@ export const deleteVideo = async (req, res) => {
         await Comment.findByIdAndDelete(String(commentObject));
     });
 
-    if(isHeroku) {
+    if(res.locals.isHeroku) {
         const videoUrl = video.fileUrl.split('/');
         console.log("videoUrl", videoUrl);
         const delFileName = url[url.length - 1];
@@ -135,7 +135,7 @@ export const deleteVideo = async (req, res) => {
             }
         })
     }
-    
+
     await Video.findByIdAndDelete(id);
     return res.redirect("/");
 }
