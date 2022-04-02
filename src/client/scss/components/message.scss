@@ -15,14 +15,15 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    max-width: 200px;
+    max-width: 150px;
     padding: 10px 20px;
     border-radius: 10000px;
     text-align: center;
     animation: goAway .5s ease-in-out forwards;
     animation-delay: 7s;
+    background-color: lightseagreen;
+    color: white;
     &.error {
       background-color: tomato;
-      color: white;
     }
   }
