@@ -122,8 +122,8 @@ export const deleteVideo = async (req, res) => {
     if(res.locals.isHeroku) {
         const videoUrl = video.fileUrl.split('/');
         const thumbUrl = video.thumbUrl.split('/');
-        const delVideoFileName = videoUrl[videoUrl.length - 1];
-        const delThumbFileName = thumbUrl[thumbUrl.length - 1];
+        const delVideoFileName = 'videos/' + videoUrl[videoUrl.length - 1];
+        const delThumbFileName = 'videos/' + thumbUrl[thumbUrl.length - 1];
         const params = {
             Bucket: 'jh-wetube',
             Delete: {
