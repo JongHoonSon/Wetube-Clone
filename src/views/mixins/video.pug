@@ -13,7 +13,10 @@ mixin video(video)
                 span.video-mixin__title=video.title
             div.video-mixin__owner
                 div
-                    img(src=video.owner.avatarUrl onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`).video-mixin__owner__avatar
+                    if(isHeroku)
+                        img(src=video.owner.avatarUrl, onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`).video-mixin__owner__avatar
+                    else
+                        img(src='/' + video.owner.avatarUrl, onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`).video-mixin__owner__avatar
                 span.video-mixin__owner__name(onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`)=video.owner.name
             div.video-mixin__meta
                 span#views 조회수 #{video.meta.views}회 • 
