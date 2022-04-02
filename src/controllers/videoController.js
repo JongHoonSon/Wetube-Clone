@@ -125,13 +125,12 @@ export const deleteVideo = async (req, res) => {
         const delVideoFileName = videoUrl[videoUrl.length - 1];
         const delThumbFileName = thumbUrl[thumbUrl.length - 1];
         const params = {
-            Bucket: 'jh-wetube/videos',
+            Bucket: 'jh-wetube',
             Delete: {
-                Objects: [{
-                    Key: delVideoFileName
-                }, {
-                    Key: delThumbFileName
-                }]
+                Objects: [
+                    { Key: delVideoFileName },
+                    { Key: delThumbFileName }
+                ]
             }
         };
         s3.deleteObjects(params, function(err, data) {
