@@ -137,7 +137,7 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
     const { 
         session: {
-            user: { _id, avataUrl, }
+            user: { _id, avatarUrl, }
         },
         body: { name, email, username, location },
         file,
