@@ -34,7 +34,7 @@ const handleSubmit = async (event) => {
   if (text === "") {
     return ;
   }
-  const response = await fetch(`/api/videos/${videoId}/comment`, {
+  const response = await fetch(`/api/comments/${videoId}/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json", // express 에게 POST에 담긴 내용이 JSON 형태의 String 임을 headers에서 전달함
