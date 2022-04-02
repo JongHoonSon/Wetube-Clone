@@ -163,8 +163,10 @@ export const postUserEdit = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(_id, {
         avatarUrl: file ? (res.locals.isHeroku ? file.location : file.path) : avatarUrl, name, email, username, location
     }, {new: true});
-    
-    if(res.locals.isHeroku) {
+
+    console.log("avatarUrl", avatarUrl);
+
+    if(res.locals.isHeroku && avatarUrl && !avatarUrl.includes("github")) {
         const delAvatarUrl = avatarUrl.split('/');
         const delAvatarFileName = delAvatarUrl[delAvatarUrl.length - 1];
         const params = {
