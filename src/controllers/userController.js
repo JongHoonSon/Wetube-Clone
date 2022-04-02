@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
+import { s3 } from "../middlewares";
 import User from "../models/User"
 import Video from "../models/Video"
 
