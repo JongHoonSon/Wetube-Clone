@@ -117,16 +117,23 @@ export const deleteVideo = async (req, res) => {
     });
 
     console.log("res.locals.isHeroku", res.locals.isHeroku);
+    console.log("video", video);
 
     if(res.locals.isHeroku) {
         const videoUrl = video.fileUrl.split('/');
-        console.log("videoUrl", videoUrl);
-        const delFileName = videoUrl[videoUrl.length - 1];
-        console.log("delFileName", delFileName);
+        const thumbUrl = video.thumbUrl.split('/');
+        const delVideoFileName = videoUrl[videoUrl.length - 1];
+        const delThumbFileName = thumbUrl[thumbUrl.length - 1];
         const params = {
             Bucket: 'jh-wetube/videos',
-            Key: delFileName
-        }
+            Delete: {
+                Objects: [{
+                    Key: delVideoFileName
+                }, {
+                    Key: delThumbFileName
+                }]
+            }
+        };
         s3.deleteObject(params, function(err, data) {
             if(err) {
                 console.log('aws video delete error');
