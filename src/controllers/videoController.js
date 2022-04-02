@@ -134,7 +134,7 @@ export const deleteVideo = async (req, res) => {
                 }]
             }
         };
-        s3.deleteObject(params, function(err, data) {
+        s3.deleteObjects(params, function(err, data) {
             if(err) {
                 console.log('aws video delete error');
                 console.log(err, err.stack);
