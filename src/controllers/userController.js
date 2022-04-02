@@ -194,6 +194,11 @@ export const postChangePassword = async (req, res) => {
         req.flash("error", "The new password does not match wtih a confirmation password.");
         return res.status(400).render("users/change-password", { pageTitle: "Change Password" });
     }
+    if(oldPassword === newPassword) {
+        req.flash("error", "The new password is same with old password.");
+        return res.status(400).render("users/change-password", { pageTitle: "Change Password" });
+    }
+    
     user.password = newPassword;
     await user.save();
     req.flash("info", "Password updated");
