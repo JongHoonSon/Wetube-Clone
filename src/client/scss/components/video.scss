@@ -41,10 +41,13 @@ video {
             cursor: pointer;
           }
         }
+        span {
+          margin-left: 15px;
+        }
       }
       .video-mixin__meta {
         width: 100%;
-        margin-top: 20px;
+        margin-top: 10px;
         text-align: right;
         font-size: 12px;
       }
