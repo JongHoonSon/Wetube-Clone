@@ -10,7 +10,7 @@ export const home = async(req, res) => {
     return res.render("home", {pageTitle: "Home", videos});
 };
 
-export const watch = async (req, res) => {
+export const watchVideo = async (req, res) => {
     const { id } = req.params;
     const video = await Video.findById(id).populate("owner").populate("comments");
     if(!video) {
@@ -20,7 +20,7 @@ export const watch = async (req, res) => {
     return res.render("videos/watch", {pageTitle: video.title, video });
 }
 
-export const getEdit = async (req, res) => {
+export const getVideoEdit = async (req, res) => {
     const { id } = req.params;
     const {
         user: { _id }
@@ -37,7 +37,7 @@ export const getEdit = async (req, res) => {
     return res.render("videos/edit", {pageTitle: `Edit: ${video.title}`, video});
 }
 
-export const postEdit = async (req, res) => {
+export const postVideoEdit = async (req, res) => {
     const { id } = req.params;
     const {
         user: { _id }
@@ -61,11 +61,11 @@ export const postEdit = async (req, res) => {
     return res.redirect(`/videos/${id}`);
 }
 
-export const getUpload = (req, res) => {
+export const getVideoUpload = (req, res) => {
     return res.render("videos/upload", { pageTitle: "Upload Video" });
 };
   
-export const postUpload = async (req, res) => {
+export const postVideoUpload = async (req, res) => {
     const {
         user: {_id}
     } = req.session;
@@ -123,7 +123,7 @@ export const search = async (req, res) => {
     return res.render("videos/search", { pageTitle: "Search", videos });
 }
 
-export const registerView = async (req, res) => {
+export const registerVideoView = async (req, res) => {
     const { id } = req.params;
     const video = await Video.findById(id);
     if(!video) {

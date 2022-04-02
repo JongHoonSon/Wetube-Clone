@@ -134,12 +134,11 @@ export const logout = (req, res) => {
     return res.redirect("/");
 };
 
-export const getEdit = (req, res) => {
-
+export const getUserEdit = (req, res) => {
     return res.render("users/edit-profile", { pageTitle: "Edit Profile" });
 };
 
-export const postEdit = async (req, res) => {
+export const postUserEdit = async (req, res) => {
     const { 
         session: {
             user: { _id, avatarUrl, }
