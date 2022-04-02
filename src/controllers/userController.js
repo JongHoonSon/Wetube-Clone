@@ -163,6 +163,24 @@ export const postUserEdit = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(_id, {
         avatarUrl: file ? (res.locals.isHeroku ? file.location : file.path) : avatarUrl, name, email, username, location
     }, {new: true});
+    
+    if(res.locals.isHeroku) {
+        const delAvatarUrl = avatarUrl.split('/');
+        const delAvatarFileName = delAvatarUrl[delAvatarUrl.length - 1];
+        const params = {
+            Bucket: 'jh-wetube',
+            key: 'images/' + delAvatarFileName
+        }
+        s3.deleteObject(params, function(err, data) {
+            if(err) {
+                console.log('aws video delete error');
+                console.log(err, err.stack);
+                return res.redirect('/');
+            } else {
+                console.log('aws video delete success' + data);
+            }
+        })
+    }
     req.session.user = updatedUser;
     req.flash("success", "Changes saved.")
     return res.redirect(`/users/${_id}`);
