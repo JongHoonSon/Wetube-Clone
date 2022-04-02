@@ -160,9 +160,8 @@ export const postUserEdit = async (req, res) => {
             return res.status(400).render("users/edit-profile", { pageTitle: "Edit profile" });
         }
     }
-    const isHeroku = process.env.NODE_ENV === "production";
     const updatedUser = await User.findByIdAndUpdate(_id, {
-        avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl, name, email, username, location
+        avatarUrl: file ? (res.locals.isHeroku ? file.location : file.path) : avatarUrl, name, email, username, location
     }, {new: true});
     req.session.user = updatedUser;
     req.flash("success", "Changes saved.")

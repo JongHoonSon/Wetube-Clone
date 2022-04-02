@@ -74,14 +74,13 @@ export const postVideoUpload = async (req, res) => {
     } = req.session;
     const { video, thumb } = req.files;
     const { title, description, hashtags } = req.body;
-    const isHeroku = process.env.NODE_ENV === "production";
     console.log(video);
     try {
         const newVideo = await Video.create({
             title,
             description,
-            fileUrl: isHeroku ? video[0].location : video[0].path,
-            thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
+            fileUrl: res.locals.isHeroku ? video[0].location : video[0].path,
+            thumbUrl: res.locals.isHeroku ? thumb[0].location : thumb[0].path,
             owner: _id,
             hashtags:Video.formatHashtags(hashtags),
         });
@@ -115,9 +114,6 @@ export const deleteVideo = async (req, res) => {
         console.log(String(commentObject));
         await Comment.findByIdAndDelete(String(commentObject));
     });
-
-    console.log("res.locals.isHeroku", res.locals.isHeroku);
-    console.log("video", video);
 
     if(res.locals.isHeroku) {
         const videoUrl = video.fileUrl.split('/');
