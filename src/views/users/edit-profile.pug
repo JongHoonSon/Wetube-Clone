@@ -9,12 +9,16 @@ block content
     else
         img(src='/' + loggedInUser.avatarUrl, width="100", height="100", crossorigin)
     form(method="POST", enctype="multipart/form-data")
-        label(for="avatar") Avatar
+        label(for="avatar") Profile Image
         input(type="file", id="avatar", name="avatar", accept="image/*")
-        input(placeholder="Email", value=loggedInUser.email, name="email", type="text", required)
-        input(placeholder="Username", value=loggedInUser.username, name="username", type="text", required)
-        input(placeholder="Name", value=loggedInUser.name, name="name", type="text", required)
-        input(placeholder="Location", value=loggedInUser.location, name="location", type="text")
+        label(for="email") Email
+        input(placeholder="Email", value=loggedInUser.email, id="email", name="email", type="text", required)
+        label(for="username") Username
+        input(placeholder="Username", value=loggedInUser.username, id="username", name="username", type="text", required)
+        label(for="name") Name
+        input(placeholder="Name", value=loggedInUser.name, id="name", name="name", type="text", required)
+        label(for="location") Location
+        input(placeholder="Location", value=loggedInUser.location, id="location", name="location", type="text")
         input(type="submit", value="Update Profile")
         if !loggedInUser.socialOnly
             div.edit-profile__password

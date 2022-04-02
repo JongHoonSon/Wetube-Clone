@@ -12,9 +12,12 @@ block content
             input(type="file", accept="video/*", required, id="video", name="video")
             label(for="thumb") Thumbnail File
             input(type="file", accept="image/*", required, id="thumb", name="thumb")
-            input(placeholder="Title", required, type="text", name="title", maxlength=80)
-            input(placeholder="Description", required, type="text", name="description")
-            input(placeholder="Hashtags, separated by comma.", type="text", name="hashtags")
+            label(for="title") Title
+            input(required, type="text", id="title", name="title", maxlength=80)
+            label(for="description") Description
+            input(required, type="text", id="description", name="description")
+            label(for="hashtags") Hashtags
+            input(type="text", id="hashtags", name="hashtags")
             input(type="submit", value="Upload Video")
 
 block scripts
