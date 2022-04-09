@@ -12,7 +12,8 @@
     "build:server": "babel src -d build",
     "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
-    "dev:assets": "webpack --mode=development -w"
+    "dev:assets": "webpack --mode=development -w",
+    "heroku": "heroku logs --tail"
   },
   "author": "JongHoon Son<roka1684@gmail.com>",
   "license": "MIT",
