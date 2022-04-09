@@ -5,7 +5,7 @@ div.video-mixin__meta
 if(isHeroku)
     div(onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`).video-mixin__owner
         div
-            img(src=video.owner.avatarUrl, ).video-mixin__owner__avatar
+            img(src=video.owner.avatarUrl, crossorigin).video-mixin__owner__avatar
             span.video-mixin__owner__name=video.owner.name
 
 else
