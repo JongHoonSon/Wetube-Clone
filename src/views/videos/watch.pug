@@ -37,24 +37,24 @@ block content
                             i.fa-solid.fa-pen-to-square
                         a(href=`${video.id}/delete`).deleteBtn
                             i.fa-solid.fa-trash-can
-        if loggedIn
-            div.video__comment__section
+        div.video__comment__section
+            if loggedIn
                 div.video__add-comments
                     form.video__comment-form#commentForm
                         textarea(cols="30", rows="10", placeholder="Write a nice commment...")
                         button
                             i.fa-solid.fa-circle-plus
-                div.video__comments
-                    ul 
-                        each comment in video.comments.reverse()
-                            li.video__comment(data-id=comment._id)
+            div.video__comments
+                ul 
+                    each comment in video.comments.reverse()
+                        li.video__comment(data-id=comment._id)
+                            div
+                                i.fas.fa-comment
+                                span #{comment.text}
+                            if String(comment.owner._id) === String(loggedInUser._id)
                                 div
-                                    i.fas.fa-comment
-                                    span #{comment.text}
-                                if String(comment.owner._id) === String(loggedInUser._id)
-                                    div
-                                        button.video__comment__delete-btn
-                                            i.fa-solid.fa-xmark
+                                    button.video__comment__delete-btn
+                                        i.fa-solid.fa-xmark
 
 block scripts
     script(src="/static/js/watch.js") 
