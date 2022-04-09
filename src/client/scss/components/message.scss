@@ -1,29 +1,29 @@
 @keyframes goAway {
-    from {
-      transform: none;
-      opacity: 1;
-    }
-    to {
-      transform: translateY(-50px);
-      opacity: 0;
-    }
+  from {
+    transform: none;
+    opacity: 1;
   }
-  
-  .message {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    max-width: 150px;
-    padding: 10px 20px;
-    border-radius: 10000px;
-    text-align: center;
-    animation: goAway .5s ease-in-out forwards;
-    animation-delay: 7s;
-    background-color: lightseagreen;
-    color: white;
-    &.error {
-      background-color: tomato;
-    }
+  to {
+    transform: translateY(-50px);
+    opacity: 0;
   }
+}
+
+.message {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 150px;
+  padding: 10px 20px;
+  border-radius: 10000px;
+  text-align: center;
+  animation: goAway 0.5s ease-in-out forwards;
+  animation-delay: 3s;
+  background-color: #2ecc71;
+  color: white;
+  &.error {
+    background-color: #e74c3c;
+  }
+}
