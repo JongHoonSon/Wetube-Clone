@@ -9,18 +9,25 @@ const addComment = (text, id) => {
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
   newComment.className = "video__comment";
-  const icon = document.createElement("i");
-  icon.className = "fas fa-comment";
+  const div1 = document.createElement("div");
+  const icon1 = document.createElement("i");
+  icon1.className = "fas fa-comment";
   const span = document.createElement("span");
   span.innerText = `${text}`;
+  const div2 = document.createElement("div");
   const deleteBtn = document.createElement("button");
-  deleteBtn.innerText = "X";
+  const icon2 = document.createElement("i");
+  icon2.className = "fa-solid fa-xmark";
 
   console.log(id);
 
-  newComment.appendChild(icon);
-  newComment.appendChild(span);
-  newComment.appendChild(deleteBtn);
+  newComment.appendChild(div1);
+  div1.appendChild(icon1);
+  div1.appendChild(span);
+
+  newComment.appendChild(div2);
+  div2.appendChild(deleteBtn);
+  deleteBtn.appendChild(icon2);
 
   newComment.addEventListener("click", handleDeleteComment);
 
@@ -57,7 +64,7 @@ if (form) {
 }
 
 const handleDeleteComment = async (event) => {
-  const comment = event.target.parentElement;
+  const comment = event.target.parentElement.parentElement.parentElement;
   const commentId = comment.dataset.id;
 
   const response = await fetch(`/api/comments/${commentId}/delete`, {
