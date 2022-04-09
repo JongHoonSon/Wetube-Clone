@@ -19,6 +19,8 @@ header
                                 img.header__avatar(src=loggedInUser.avatarUrl, crossorigin)
                             else
                                 img.header__avatar(src='/' + loggedInUser.avatarUrl, crossorigin)
+                                br
+                                span.header_username #{loggedInUser.name}
             else
                 li
                     a(href="/login") Login
