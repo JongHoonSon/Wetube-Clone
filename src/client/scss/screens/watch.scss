@@ -88,13 +88,26 @@
       margin: 0 auto;
       margin-top: 20px;
       .video__comment {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding: 10px;
         border-radius: 15px;
         background-color: rgba(255, 255, 255, 0.9);
         color: rgba(0, 0, 0, 0.9);
         margin-bottom: 10px;
-        .fas.fa-comment {
-          padding: 0px 10px;
+        button {
+          background-color: transparent;
+          border: none;
+          outline: none;
+        }
+        i {
+          padding: 0px 20px;
+        }
+        .fa-solid.fa-xmark {
+          font-size: 20px;
+          color: rgba(255, 0, 0, 0.8);
+          cursor: pointer;
         }
       }
     }
