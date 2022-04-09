@@ -31,7 +31,7 @@ header {
   .nav__login ul {
     display: flex;
     justify-content: end;
-    align-items: flex-start;
+    align-items: center;
     margin-left: 50px;
     font-size: 14px;
     li {
@@ -40,9 +40,6 @@ header {
       text-align: center;
       text-transform: uppercase;
     }
-    i {
-      font-size: 16px;
-    }
     .header__btn {
       background-color: white;
       color: $bg;
@@ -50,14 +47,15 @@ header {
       border-radius: 5px;
     }
     .header__avatar {
-      width: 40px;
-      height: 40px;
+      width: 55px;
+      height: 55px;
       border-radius: 50%;
     }
     .header_username {
       display: block;
       text-align: center;
       text-transform: none;
+      font-size: 16px;
       font-weight: 400;
     }
   }
