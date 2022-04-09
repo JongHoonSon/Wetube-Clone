@@ -24,7 +24,7 @@ const videoPauseAndPlay = () => {
     video.pause();
   }
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
-}
+};
 
 const handlePlayClick = (e) => {
   videoPauseAndPlay();
@@ -108,20 +108,20 @@ const handleMouseLeave = () => {
 
 const handleVideoClick = () => {
   videoPauseAndPlay();
-}
+};
 
 const handleKeyDown = (event) => {
-  if(event.key === " ") {
+  if (event.key === " ") {
     videoPauseAndPlay();
   }
-}
+};
 
 const handleEnded = (event) => {
   const { id } = videoContainer.dataset;
   fetch(`/api/videos/${id}/view`, {
     method: "POST",
   });
-}
+};
 
 handleLoadedMetadata();
 
