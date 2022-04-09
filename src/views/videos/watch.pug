@@ -48,10 +48,13 @@ block content
                     ul 
                         each comment in video.comments.reverse()
                             li.video__comment(data-id=comment._id)
-                                i.fas.fa-comment
-                                span #{comment.text}
+                                div
+                                    i.fas.fa-comment
+                                    span #{comment.text}
                                 if String(comment.owner._id) === String(loggedInUser._id)
-                                    button.video__comment__delete-btn X
+                                    div
+                                        button.video__comment__delete-btn
+                                            i.fa-solid.fa-xmark
 
 block scripts
     script(src="/static/js/watch.js") 
