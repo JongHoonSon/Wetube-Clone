@@ -57,6 +57,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
+  req.flash("info", `Hello, ${user.name} !`);
   return res.redirect("/");
 };
 
