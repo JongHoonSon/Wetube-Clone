@@ -1,5 +1,6 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
+const commentEditBtns = document.querySelectorAll(".video__comment__edit-btn");
 const commentDeleteBtns = document.querySelectorAll(
   ".video__comment__delete-btn"
 );
@@ -63,8 +64,24 @@ if (form) {
   form.addEventListener("submit", handleSubmit);
 }
 
+const handleEditComment = async (event) => {
+  const commentDeleteBtn = event.target.parentElement;
+  const commentBtnWrapper = commentDeleteBtn.parentElement;
+  const comment = commentBtnWrapper.parentElement;
+  const commentId = comment.dataset.id;
+  const commentContentsWrapper = comment.childNodes[0];
+  const commentSpanWrapper = commentContentsWrapper.childNodes[1];
+  const commentTextSpan = commentSpanWrapper.childNodes[0];
+  const commentTextTextarea = commentSpanWrapper.childNodes[1];
+
+  commentTextSpan.classList.add("hidden");
+  commentTextTextarea.classList.remove("hidden");
+};
+
 const handleDeleteComment = async (event) => {
-  const comment = event.target.parentElement.parentElement.parentElement;
+  const commentDeleteBtn = event.target.parentElement;
+  const commentBtnWrapper = commentDeleteBtn.parentElement;
+  const comment = commentBtnWrapper.parentElement;
   const commentId = comment.dataset.id;
 
   const response = await fetch(`/api/comments/${commentId}/delete`, {
@@ -75,6 +92,10 @@ const handleDeleteComment = async (event) => {
     comment.remove();
   }
 };
+
+commentEditBtns.forEach((btn) => {
+  btn.addEventListener("click", handleEditComment);
+});
 
 commentDeleteBtns.forEach((btn) => {
   btn.addEventListener("click", handleDeleteComment);
