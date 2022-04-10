@@ -98,6 +98,11 @@ const handleEditComment = (event) => {
 };
 
 const handleDeleteComment = async (event) => {
+  if (!confirm("Do you really want to delete this comment?")) {
+    event.preventDefault();
+    return;
+  }
+
   const commentDeleteBtn = event.target.parentElement;
   const commentBtnWrapper = commentDeleteBtn.parentElement;
   const comment = commentBtnWrapper.parentElement;
