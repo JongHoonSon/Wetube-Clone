@@ -59,21 +59,18 @@
           background-color: white;
         }
         button {
-          width: 30px;
-          height: 30px;
           border: 0px;
           outline: 0px;
-          border-radius: 50%;
-          will-change: transform;
           margin-left: 10px;
           background-color: transparent;
-          transition: transform 0.2s;
           i {
+            border: 2px solid black;
+            border-radius: 50%;
             font-size: 28px;
             color: white;
           }
-          &:hover {
-            transform: scale(1.1);
+          &:active {
+            transform: scale(0.95);
           }
         }
       }
