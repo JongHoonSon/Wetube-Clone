@@ -1,3 +1,5 @@
+const { async } = require("regenerator-runtime");
+
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 const commentEditBtns = document.querySelectorAll(".video__comment__edit-btn");
@@ -64,18 +66,65 @@ if (form) {
   form.addEventListener("submit", handleSubmit);
 }
 
-const handleEditComment = async (event) => {
-  const commentDeleteBtn = event.target.parentElement;
-  const commentBtnWrapper = commentDeleteBtn.parentElement;
+const handleEditComment = (event) => {
+  const commentEditBtn = event.target.parentElement;
+  const commentBtnWrapper = commentEditBtn.parentElement;
   const comment = commentBtnWrapper.parentElement;
   const commentId = comment.dataset.id;
   const commentContentsWrapper = comment.childNodes[0];
   const commentSpanWrapper = commentContentsWrapper.childNodes[1];
   const commentTextSpan = commentSpanWrapper.childNodes[0];
   const commentTextTextarea = commentSpanWrapper.childNodes[1];
+  const commentDeleteBtn = commentBtnWrapper.childNodes[1];
 
+  commentEditBtn.classList.add("hidden");
+  commentDeleteBtn.classList.add("hidden");
   commentTextSpan.classList.add("hidden");
+
+  const commentEditConfirmBtn = commentBtnWrapper.childNodes[2];
+  const commentEditCancelBtn = commentBtnWrapper.childNodes[3];
+
+  commentEditConfirmBtn.classList.remove("hidden");
+  commentEditCancelBtn.classList.remove("hidden");
   commentTextTextarea.classList.remove("hidden");
+
+  commentEditConfirmBtn.onclick = async () => {
+    console.log("textarea", commentTextTextarea.value);
+    console.log("span", commentTextSpan.innerText);
+
+    const text = commentTextTextarea.value;
+
+    const response = await fetch(`/api/comments/${commentId}/update`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    });
+
+    if (response.status === 200) {
+      commentTextSpan.innerText = commentTextTextarea.value;
+
+      commentEditBtn.classList.remove("hidden");
+      commentDeleteBtn.classList.remove("hidden");
+      commentTextSpan.classList.remove("hidden");
+
+      commentEditConfirmBtn.classList.add("hidden");
+      commentEditCancelBtn.classList.add("hidden");
+      commentTextTextarea.classList.add("hidden");
+    }
+  };
+
+  commentEditCancelBtn.onclick = () => {
+    commentTextTextarea.value = commentTextSpan.innerText;
+    commentEditBtn.classList.remove("hidden");
+    commentDeleteBtn.classList.remove("hidden");
+    commentTextSpan.classList.remove("hidden");
+
+    commentEditConfirmBtn.classList.add("hidden");
+    commentEditCancelBtn.classList.add("hidden");
+    commentTextTextarea.classList.add("hidden");
+  };
 };
 
 const handleDeleteComment = async (event) => {
