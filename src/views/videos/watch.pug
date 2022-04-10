@@ -52,6 +52,7 @@ block content
                                 i.fas.fa-comment
                                 div.video__comment__span-wrapper
                                     span.video__comment__text #{comment.text}
+                                    textarea.video__comment__text__edit.hidden #{comment.text}
                                     div.video__comment__meta-wrapper
                                         span.video__comment__date#uploadDate(data-id=comment.createdAt)
                                         if(isHeroku)
@@ -59,7 +60,9 @@ block content
                                         else
                                             span.video__comment__owner(onclick=`location.href='http://localhost:4000/users/${comment.owner._id}'`) #{comment.owner.username}
                             if String(comment.owner._id) === String(loggedInUser._id)
-                                div.video__comment__delete-btn-wrapper
+                                div.video__comment__btn-wrapper
+                                    button.video__comment__edit-btn
+                                        i.fa-solid.fa-pen-to-square
                                     button.video__comment__delete-btn
                                         i.fa-solid.fa-xmark
 
