@@ -93,20 +93,30 @@
         margin-bottom: 10px;
         border: 3px solid black;
         .video__comment__contents-wrapper {
+          padding: 0px 10px;
+          width: 100%;
           display: flex;
           justify-content: flex-start;
           align-items: center;
           .video__comment__span-wrapper {
-            margin: 5px 0px;
+            margin: 5px 10px;
+            width: 100%;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             flex-direction: column;
             .video__comment__text {
-              display: block;
               width: 100%;
               text-align: left;
               font-size: 14px;
+            }
+            .video__comment__text__edit {
+              width: 90%;
+              height: 60px;
+              resize: none;
+              border: 2px solid skyblue;
+              border-radius: 5px;
+              outline-color: skyblue;
             }
             .video__comment__meta-wrapper {
               display: flex;
@@ -129,33 +139,41 @@
             }
           }
         }
-
-        button {
-          background-color: transparent;
-          border: none;
-          outline: none;
-        }
-        i {
-          padding: 0px 20px;
-        }
-        .fa-solid.fa-xmark {
-          font-size: 20px;
-          color: rgba(255, 0, 0, 0.8);
-          cursor: pointer;
+        .video__comment__btn-wrapper {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+          }
+          i {
+            cursor: pointer;
+          }
+          .fa-pen-to-square {
+            font-size: 16px;
+          }
+          .fa-xmark {
+            font-size: 20px;
+            color: rgba(255, 0, 0, 0.8);
+          }
         }
       }
     }
   }
 }
 
-@media screen and (max-width: 1300px) {
+@media (max-width: 1300px) {
   .watch__wrapper {
     flex-direction: column;
     align-items: center;
     .video__comment__section {
       width: 600px;
-      textarea {
-        width: 100%;
+      .video__add-comments {
+        textarea {
+          width: 100%;
+        }
       }
     }
   }
