@@ -7,36 +7,6 @@ const commentDeleteBtns = document.querySelectorAll(
   ".video__comment__delete-btn"
 );
 
-const addComment = (text, id) => {
-  const videoComments = document.querySelector(".video__comments ul");
-  const newComment = document.createElement("li");
-  newComment.dataset.id = id;
-  newComment.className = "video__comment";
-  const div1 = document.createElement("div");
-  const icon1 = document.createElement("i");
-  icon1.className = "fas fa-comment";
-  const span = document.createElement("span");
-  span.innerText = `${text}`;
-  const div2 = document.createElement("div");
-  const deleteBtn = document.createElement("button");
-  const icon2 = document.createElement("i");
-  icon2.className = "fa-solid fa-xmark";
-
-  console.log(id);
-
-  newComment.appendChild(div1);
-  div1.appendChild(icon1);
-  div1.appendChild(span);
-
-  newComment.appendChild(div2);
-  div2.appendChild(deleteBtn);
-  deleteBtn.appendChild(icon2);
-
-  newComment.addEventListener("click", handleDeleteComment);
-
-  videoComments.prepend(newComment);
-};
-
 const handleSubmit = async (event) => {
   event.preventDefault();
   const textarea = form.querySelector("textarea");
@@ -58,7 +28,7 @@ const handleSubmit = async (event) => {
     // response 에서 json object 추출
     const { newCommentId } = await response.json();
     textarea.value = "";
-    addComment(text, newCommentId);
+    window.location.reload();
   }
 };
 
