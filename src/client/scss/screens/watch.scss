@@ -150,13 +150,20 @@
           }
           i {
             cursor: pointer;
+            font-size: 12px;
+            &:hover {
+              transform: scale(1.1);
+            }
           }
-          .fa-pen-to-square {
-            font-size: 16px;
+          .fa-rectangle-xmark {
+            color: rgba(255, 0, 0, 0.8);
+          }
+          .fa-check {
+            color: $green;
           }
           .fa-xmark {
-            font-size: 20px;
             color: rgba(255, 0, 0, 0.8);
+            font-size: 16px;
           }
         }
       }
