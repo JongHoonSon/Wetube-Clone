@@ -48,16 +48,24 @@ block content
                 ul 
                     each comment in video.comments.reverse()
                         li.video__comment(data-id=comment._id)
-                            div
+                            div.video__comment__contents-wrapper
                                 i.fas.fa-comment
-                                span #{comment.text}
+                                div.video__comment__span-wrapper
+                                    span.video__comment__text #{comment.text}
+                                    div.video__comment__meta-wrapper
+                                        span.video__comment__date#uploadDate(data-id=comment.createdAt)
+                                        if(isHeroku)
+                                            span.video__comment__owner(onclick=`location.href='http://jh-wetube.herokuapp.com/users/${comment.owner._id}'`) #{comment.owner.username}
+                                        else
+                                            span.video__comment__owner(onclick=`location.href='http://localhost:4000/users/${comment.owner._id}'`) #{comment.owner.username}
                             if String(comment.owner._id) === String(loggedInUser._id)
-                                div
+                                div.video__comment__delete-btn-wrapper
                                     button.video__comment__delete-btn
                                         i.fa-solid.fa-xmark
 
 block scripts
     script(src="/static/js/watch.js") 
+    script(src="/static/js/main.js") 
     script(src="/static/js/videoPlayer.js")
     if loggedIn
         script(src="/static/js/commentSection.js") 
