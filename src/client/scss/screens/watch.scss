@@ -86,7 +86,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px;
+        padding: 5px;
         border-radius: 15px;
         background-color: rgba(255, 255, 255, 1);
         color: rgba(0, 0, 0, 0.9);
@@ -96,7 +96,40 @@
           display: flex;
           justify-content: flex-start;
           align-items: center;
+          .video__comment__span-wrapper {
+            margin: 5px 0px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            .video__comment__text {
+              display: block;
+              width: 100%;
+              text-align: left;
+              font-size: 14px;
+            }
+            .video__comment__meta-wrapper {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              margin-top: 5px;
+              width: 100%;
+              text-align: left;
+              font-size: 11px;
+              opacity: 0.8;
+              span {
+                margin-right: 10px;
+              }
+              .video__comment__owner {
+                cursor: pointer;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
         }
+
         button {
           background-color: transparent;
           border: none;
