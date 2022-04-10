@@ -3,14 +3,14 @@ div.video-mixin__meta
     span(data-id=video.createdAt)#uploadDate
     
 if(isHeroku)
-    div(onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`).video-mixin__owner
-        div
+    div.video-mixin__owner
+        div(onclick=`location.href='http://jh-wetube.herokuapp.com/users/${video.owner._id}'`)
             img(src=video.owner.avatarUrl, crossorigin).video-mixin__owner__avatar
             span.video-mixin__owner__name=video.owner.name
 
 else
-    div(onclick=`location.href='http://localhost:4000/users/${video.owner._id}'`).video-mixin__owner
-        div
+    div.video-mixin__owner
+        div(onclick=`location.href='http://localhost:4000/users/${video.owner._id}'`)
             img(src='/' + video.owner.avatarUrl).video-mixin__owner__avatar
             span.video-mixin__owner__name=video.owner.name
 
