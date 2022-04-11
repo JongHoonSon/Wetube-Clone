@@ -67,9 +67,6 @@ export const postVideoEdit = async (req, res) => {
     req.flash("error", "You are not the the owner of the video.");
     return res.status(403).redirect("/");
   }
-  if (newThumb && res.locals.isHeroku) {
-    deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
-  }
   await Video.findByIdAndUpdate(id, {
     title,
     description,
@@ -80,6 +77,9 @@ export const postVideoEdit = async (req, res) => {
         : newThumb[0].path
       : video.thumbUrl,
   });
+  if (newThumb && res.locals.isHeroku) {
+    deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
+  }
   req.flash("success", "Changes saved.");
   return res.redirect(`/videos/${id}`);
 };
@@ -139,12 +139,13 @@ export const deleteVideo = async (req, res) => {
     await Comment.findByIdAndDelete(String(commentObject));
   });
 
+  await Video.findByIdAndDelete(id);
+
   if (res.locals.isHeroku) {
     deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.fileUrl);
     deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
   }
 
-  await Video.findByIdAndDelete(id);
   req.flash("success", "Delete succeed.");
   return res.redirect("/");
 };
