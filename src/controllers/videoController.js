@@ -218,6 +218,7 @@ export const registerVideoLike = async (req, res) => {
     String(user.likeVideos).includes(String(video._id))
   ) {
     console.log("Like Canceled!!!");
+    req.flash("error", "Removed from your Liked Video! :)");
     video.likeUsers = video.likeUsers.filter(
       (likeUsers) => String(likeUsers) !== String(user._id)
     );
@@ -226,6 +227,7 @@ export const registerVideoLike = async (req, res) => {
     );
   } else {
     console.log("Like Added!!!");
+    req.flash("success", "Added to your Liked Video! :)");
     video.likeUsers.push(user._id);
     user.likeVideos.push(video._id);
   }
@@ -238,6 +240,5 @@ export const registerVideoLike = async (req, res) => {
   console.log(video.likeUsers.length);
   console.log(user.likeVideos.length);
 
-  req.flash("success", "Add this video to your Liked Video :)");
   return res.redirect(`/videos/${id}`);
 };
