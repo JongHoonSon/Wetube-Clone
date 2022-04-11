@@ -127,7 +127,7 @@
         margin-bottom: 10px;
         border: 2px solid white;
         .fa-comment {
-          color: white;
+          color: #0097e6;
         }
         .video__comment__contents-wrapper {
           padding: 0px 10px;
@@ -193,6 +193,9 @@
             &:hover {
               transform: scale(1.1);
             }
+          }
+          .fa-pen-to-square {
+            color: white;
           }
           .fa-rectangle-xmark {
             color: rgba(255, 0, 0, 0.8);
