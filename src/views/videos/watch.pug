@@ -32,7 +32,7 @@ block content
                         div.video-mixin__data
                             include ../partials/video-meta.pug
                 div.video__onwer__option
-                    a(href=`${video.id}/like`).likeBtn
+                    a.likeBtn
                         i.fa-solid.fa-thumbs-up
                     if String(video.owner._id) === String(loggedInUser._id)
                         a(href=`${video.id}/edit`).editBtn
