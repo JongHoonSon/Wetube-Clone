@@ -67,8 +67,7 @@ export const postVideoEdit = async (req, res) => {
     req.flash("error", "You are not the the owner of the video.");
     return res.status(403).redirect("/");
   }
-  if (newThumb) {
-    deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
+  if (newThumb && res.locals.isHeroku) {
     deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
   }
   await Video.findByIdAndUpdate(id, {
