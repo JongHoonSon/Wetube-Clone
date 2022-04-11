@@ -104,7 +104,7 @@ export const postVideoUpload = async (req, res) => {
       hashtags: Video.formatHashtags(hashtags),
     });
     const user = await User.findById(_id);
-    user.videos.push(newVideo._id);
+    user.uploadVideos.push(newVideo._id);
     user.save();
     req.flash("success", "Upload succeed.");
     return res.redirect("/");
@@ -191,4 +191,21 @@ export const registerVideoView = async (req, res) => {
   video.meta.views = video.meta.views + 1;
   await video.save();
   return res.sendStatus(200);
+};
+
+export const registerVideoLike = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    req.flash("error", "Video not found.");
+    return res.sendStatus(404);
+  }
+  if (!req.session.loggedIn) {
+    req.flash("error", "Please login first.");
+    return res.status(400).render("users/login", { pageTitle: "Login" });
+  }
+  console.log("-----------------like video----------------");
+  console.log(video);
+  console.log("-----------------like user-----------------");
+  console.log(req.session.user);
 };
