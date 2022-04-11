@@ -8,8 +8,17 @@ block content
         else
             img(src='/' + user.avatarUrl, crossorigin).avatar
         h3=user.name
+    hr
+    span My Videos
     div.video-grid
         each video in user.uploadVideos.reverse()
+            +video(video)
+        else
+            span.empty__message No videos found
+    hr
+    span Videos I Liked
+    div.video-grid
+        each video in user.likeVideos.reverse()
             +video(video)
         else
             span.empty__message No videos found
