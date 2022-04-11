@@ -1,7 +1,9 @@
 extends ../base.pug
 
 block content
-    form(method="POST")
+    form(method="POST", enctype="multipart/form-data")
+        label(for="thumb") Thumbnail File
+        input(type="file", accept="image/*", id="thumb", name="thumb")
         label(for="title") Title
         input(placeholder="Title", required, maxLength=80, type="text", value=video.title, id="title" name="title")
         label(for="description") Description
