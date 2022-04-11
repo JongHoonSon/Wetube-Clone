@@ -167,6 +167,7 @@ const deleteFileFromS3 = (bucketName, filePath, fileUrl) => {
       console.log("Object Info : " + delFileName);
     }
   );
+};
 
 export const search = async (req, res) => {
   const { keyword } = req.query;
