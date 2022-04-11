@@ -202,15 +202,12 @@ export const registerVideoLike = async (req, res) => {
     req.flash("error", "Video not found.");
     return res.sendStatus(404);
   }
-  if (!loggedInUser) {
-    console.log("please login");
-    return res.status(403).redirect("/login");
-  }
 
   const user = await User.findById(loggedInUser._id);
   if (!user) {
-    req.flash("error", "User not found.");
-    return res.sendStatus(404);
+    console.log("2");
+    req.flash("error", "Please login first.");
+    return res.redirect(`/videos/${id}`);
   }
 
   console.log(video.likeUsers.length);
@@ -241,6 +238,6 @@ export const registerVideoLike = async (req, res) => {
   console.log(video.likeUsers.length);
   console.log(user.likeVideos.length);
 
-  req.flash("success", "Upload succeed.");
-  return res.redirect("/");
+  req.flash("success", "Add this video to your Liked Video :)");
+  return res.redirect(`/videos/${id}`);
 };
