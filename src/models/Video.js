@@ -19,7 +19,7 @@ const videoSchema = new mongoose.Schema({
     require: true,
     ref: "User",
   },
-  likedUser: [
+  likeUsers: [
     {
       type: mongoose.Schema.Types.ObjectId,
       require: true,
