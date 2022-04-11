@@ -212,8 +212,14 @@ export const registerVideoLike = async (req, res) => {
     return res.sendStatus(404);
   }
 
-  if (String(video.likeUsers).includes(String(user._id))) {
-    console.log("Like Added!!!");
+  console.log(video);
+  console.log(user);
+
+  if (
+    String(video.likeUsers).includes(String(user._id)) &&
+    String(user.likeVideos).includes(String(video._id))
+  ) {
+    console.log("Like Canceled!!!");
     video.likeUsers = video.likeUsers.filter(
       (likeUsers) => String(likeUsers) !== String(user._id)
     );
@@ -221,12 +227,18 @@ export const registerVideoLike = async (req, res) => {
       (likeVideo) => String(likeVideo) !== String(video._id)
     );
   } else {
-    console.log("Like Canceled!!!");
+    console.log("Like Added!!!");
     video.likeUsers.push(user);
     user.likeVideos.push(video);
   }
 
   video.save();
   user.save();
+
+  console.log("----after-----");
+
+  console.log(video);
+  console.log(user);
+
   return res.status(200).redirect(`/videos/${id}`);
 };
