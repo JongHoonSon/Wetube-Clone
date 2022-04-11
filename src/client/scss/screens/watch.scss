@@ -82,13 +82,13 @@
           height: 50px;
           border: none;
           resize: none;
-          border: 2px solid white;
+          border: 2px solid $deepblue;
           border-radius: 15px;
           padding: 10px;
-          background-color: $deepblue;
-          color: white;
+          background-color: white;
+          color: black;
           &::placeholder {
-            color: white;
+            color: rgba(0, 0, 0, 0.5);
           }
         }
         button {
