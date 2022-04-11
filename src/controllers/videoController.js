@@ -67,6 +67,12 @@ export const postVideoEdit = async (req, res) => {
     req.flash("error", "You are not the the owner of the video.");
     return res.status(403).redirect("/");
   }
+
+  console.log(
+    "--------------------------- video info --------------------------"
+  );
+  console.log(video);
+
   await Video.findByIdAndUpdate(id, {
     title,
     description,
