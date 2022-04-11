@@ -46,7 +46,14 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      margin: 0px 20px;
+      .likebtn {
+        background-color: transparent;
+        border: none;
+        outline: none;
+      }
       i {
+        color: white;
         margin: 0px 10px;
         font-size: 20px;
         cursor: pointer;
@@ -76,10 +83,14 @@
           height: 50px;
           border: none;
           resize: none;
-          border: 3px solid black;
+          border: 2px solid white;
           border-radius: 15px;
           padding: 10px;
-          background-color: white;
+          background-color: $deepblue;
+          color: white;
+          &::placeholder {
+            color: white;
+          }
         }
         button {
           border: 0px;
@@ -87,7 +98,7 @@
           margin-left: 10px;
           background-color: transparent;
           i {
-            border: 2px solid black;
+            border: 2px solid $deepblue;
             border-radius: 50%;
             font-size: 28px;
             color: white;
@@ -111,10 +122,13 @@
         align-items: center;
         padding: 5px;
         border-radius: 15px;
-        background-color: rgba(255, 255, 255, 1);
-        color: rgba(0, 0, 0, 0.9);
+        background-color: $deepblue;
+        color: white;
         margin-bottom: 10px;
-        border: 3px solid black;
+        border: 2px solid white;
+        .fa-comment {
+          color: white;
+        }
         .video__comment__contents-wrapper {
           padding: 0px 10px;
           width: 100%;
