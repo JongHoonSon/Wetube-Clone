@@ -19,6 +19,13 @@ const videoSchema = new mongoose.Schema({
     require: true,
     ref: "User",
   },
+  likedUser: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      require: true,
+      ref: "User",
+    },
+  ],
 });
 
 videoSchema.static("formatHashtags", function (hashtags) {
