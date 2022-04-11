@@ -20,7 +20,7 @@ block content
 
     hr
 
-    span.profile__video__category Videos that #{user.name} liked
+    span.profile__video__category Videos liked by #{user.name}
     div.video-grid
         each video in user.likeVideos.reverse()
             +video(video)
