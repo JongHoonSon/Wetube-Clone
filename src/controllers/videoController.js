@@ -69,6 +69,7 @@ export const postVideoEdit = async (req, res) => {
   }
   if (newThumb) {
     deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
+    deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
   }
   await Video.findByIdAndUpdate(id, {
     title,
@@ -166,7 +167,6 @@ const deleteFileFromS3 = (bucketName, filePath, fileUrl) => {
       console.log("Object Info : " + delFileName);
     }
   );
-};
 
 export const search = async (req, res) => {
   const { keyword } = req.query;
