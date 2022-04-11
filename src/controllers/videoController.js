@@ -67,6 +67,9 @@ export const postVideoEdit = async (req, res) => {
     req.flash("error", "You are not the the owner of the video.");
     return res.status(403).redirect("/");
   }
+  if (newThumb) {
+    deleteFileFromA3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
+  }
   await Video.findByIdAndUpdate(id, {
     title,
     description,
@@ -77,7 +80,7 @@ export const postVideoEdit = async (req, res) => {
         : newThumb[0].path
       : video.thumbUrl,
   });
-  if (newThumb) req.flash("success", "Changes saved.");
+  req.flash("success", "Changes saved.");
   return res.redirect(`/videos/${id}`);
 };
 
@@ -139,25 +142,6 @@ export const deleteVideo = async (req, res) => {
   if (res.locals.isHeroku) {
     deleteFileFromA3(A3_BUCKET_NAME, "videos/", video.fileUrl);
     deleteFileFromA3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
-    // const videoUrl = video.fileUrl.split("/");
-    // const thumbUrl = video.thumbUrl.split("/");
-    // const delVideoFileName = "videos/" + videoUrl[videoUrl.length - 1];
-    // const delThumbFileName = "videos/" + thumbUrl[thumbUrl.length - 1];
-    // const params = {
-    //   Bucket: "jh-wetube",
-    //   Delete: {
-    //     Objects: [{ Key: delVideoFileName }, { Key: delThumbFileName }],
-    //   },
-    // };
-    // s3.deleteObjects(params, function (err, data) {
-    //   if (err) {
-    //     console.log("aws video delete error");
-    //     console.log(err, err.stack);
-    //     return res.redirect("/");
-    //   } else {
-    //     console.log("aws video delete success" + data);
-    //   }
-    // });
   }
 
   await Video.findByIdAndDelete(id);
