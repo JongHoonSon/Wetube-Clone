@@ -26,7 +26,6 @@ export const watchVideo = async (req, res) => {
     req.flash("error", "Video not found.");
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
-  console.log(video);
   return res.render("videos/watch", { pageTitle: video.title, video });
 };
 
@@ -68,11 +67,6 @@ export const postVideoEdit = async (req, res) => {
     return res.status(403).redirect("/");
   }
 
-  console.log(
-    "--------------------------- video info --------------------------"
-  );
-  console.log(video);
-
   await Video.findByIdAndUpdate(id, {
     title,
     description,
@@ -100,7 +94,6 @@ export const postVideoUpload = async (req, res) => {
   } = req.session;
   const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
-  console.log(video);
   try {
     const newVideo = await Video.create({
       title,
@@ -138,17 +131,12 @@ export const deleteVideo = async (req, res) => {
     req.flash("error", "You are not the owner of the video.");
     return res.status(403).redirect("/");
   }
-  console.log(video.comments);
   const commentList = video.comments;
   commentList.forEach(async (commentObject) => {
-    console.log(String(commentObject));
     await Comment.findByIdAndDelete(String(commentObject));
   });
 
   await Video.findByIdAndDelete(id);
-
-  console.log("After Delete : ", video.fileUrl);
-  console.log("After Delete : ", video.thumbUrl);
 
   if (res.locals.isHeroku) {
     deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.fileUrl);
@@ -160,10 +148,6 @@ export const deleteVideo = async (req, res) => {
 };
 
 const deleteFileFromS3 = (bucketName, filePath, fileUrl) => {
-  console.log("bucketName", bucketName);
-  console.log("filePath", filePath);
-  console.log("fileUrl", fileUrl);
-
   const delfileUrl = fileUrl.split("/");
   const delFileName = filePath + delfileUrl[delfileUrl.length - 1];
   s3.deleteObject(
@@ -174,10 +158,12 @@ const deleteFileFromS3 = (bucketName, filePath, fileUrl) => {
     (err, data) => {
       if (err) {
         console.log("AWS S3 Delete obejct filed");
+        console.log(err, err.stack);
+        return res.redirect("/");
       } else {
         console.log("AWS S3 Delete obejct succeed");
+        console.log("Object Info : " + data);
       }
-      console.log("Object Info : " + delFileName);
     }
   );
 };
