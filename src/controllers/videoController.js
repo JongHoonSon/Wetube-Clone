@@ -58,7 +58,7 @@ export const postVideoEdit = async (req, res) => {
   const newThumb = req.files.thumb;
   const { title, description, hashtags } = req.body;
 
-  const video = await Video.exists({ _id: id }).populate("owner");
+  const video = await Video.findById(id).populate("owner");
   if (!video) {
     req.flash("error", "Video not found.");
     return res.status(404).render("404", { pageTitle: "Video not found." });
