@@ -203,7 +203,6 @@ export const registerVideoLike = async (req, res) => {
   }
   if (!loggedInUser) {
     console.log("please login");
-    req.flash("error", "Please login first.");
     return res.status(403).redirect("/login");
   }
 
@@ -213,17 +212,17 @@ export const registerVideoLike = async (req, res) => {
     return res.sendStatus(404);
   }
 
-  if (String(video.likedUser).includes(String(user._id))) {
+  if (String(video.likeUsers).includes(String(user._id))) {
     console.log("Like Added!!!");
-    video.likedUser = video.likedUser.filter(
-      (likedUser) => String(likedUser) !== String(user._id)
+    video.likeUsers = video.likeUsers.filter(
+      (likeUsers) => String(likeUsers) !== String(user._id)
     );
     user.likeVideos = user.likeVideos.filter(
       (likeVideo) => String(likeVideo) !== String(video._id)
     );
   } else {
     console.log("Like Canceled!!!");
-    video.likedUser.push(user);
+    video.likeUsers.push(user);
     user.likeVideos.push(video);
   }
 
