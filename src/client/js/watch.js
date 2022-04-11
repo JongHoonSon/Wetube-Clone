@@ -7,7 +7,7 @@ function checkUserLikeVideo() {
 
   JSON.parse(videoInfo).likeUsers.forEach((likeUserId) => {
     if (likeUserId === loggedInUserId) {
-      likebtn.classList.add("red");
+      likebtn.classList.add("like");
     }
   });
 }
