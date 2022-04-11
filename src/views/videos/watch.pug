@@ -27,9 +27,15 @@ block content
             div.video__data
                 div
                     p.video__title=video.title
-                    span.video-mixin
-                        div.video-mixin__data
-                            include ../partials/video-meta.pug
+                    div.video__content
+                        span.video-mixin
+                            div.video-mixin__data
+                                include ../partials/video-meta.pug
+                        div.video__info
+                            div.video__info__description=video.description
+                            div.video__info__hashtags=video.hashtags
+
+
                 div.video__option
                     form(method="POST", action=`/videos/${video._id}/like`).likeForm
                         button.likebtn(data-id=String(loggedInUser._id), data-video=video)

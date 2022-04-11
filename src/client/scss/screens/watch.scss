@@ -22,6 +22,25 @@
       margin-left: 20px;
       margin-bottom: 10px;
     }
+    .video__content {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      .video__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        .video__info__description {
+          padding: 10px 30px;
+        }
+        .video__info__hashtags {
+          padding: 10px 30px;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+    }
     .video__option {
       height: 100%;
       display: flex;
