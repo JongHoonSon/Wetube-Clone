@@ -26,6 +26,7 @@ export const watchVideo = async (req, res) => {
     req.flash("error", "Video not found.");
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
+  console.log(video);
   return res.render("videos/watch", { pageTitle: video.title, video });
 };
 
@@ -196,7 +197,7 @@ export const registerVideoView = async (req, res) => {
 export const registerVideoLike = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
-  const loggedInUser = req.session.user;
+  const loggedInUser = res.locals.loggedInUser;
   if (!video) {
     req.flash("error", "Video not found.");
     return res.sendStatus(404);
@@ -212,8 +213,8 @@ export const registerVideoLike = async (req, res) => {
     return res.sendStatus(404);
   }
 
-  console.log(video);
-  console.log(user);
+  console.log(video.likeUsers.length);
+  console.log(user.likeVideos.length);
 
   if (
     String(video.likeUsers).includes(String(user._id)) &&
@@ -228,17 +229,18 @@ export const registerVideoLike = async (req, res) => {
     );
   } else {
     console.log("Like Added!!!");
-    video.likeUsers.push(user);
-    user.likeVideos.push(video);
+    video.likeUsers.push(user._id);
+    user.likeVideos.push(video._id);
   }
 
-  video.save();
-  user.save();
+  await video.save();
+  await user.save();
 
   console.log("----after-----");
 
-  console.log(video);
-  console.log(user);
+  console.log(video.likeUsers.length);
+  console.log(user.likeVideos.length);
 
-  return res.status(200).redirect(`/videos/${id}`);
+  req.flash("success", "Upload succeed.");
+  return res.redirect("/");
 };
