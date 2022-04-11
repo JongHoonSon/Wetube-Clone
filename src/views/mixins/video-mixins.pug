@@ -10,5 +10,5 @@ mixin video(video)
                     img(src='/' + video.thumbUrl crossorigin style="width:100%;height:100%;border-radius:5px")
         div.video-mixin__data
             a(href=`/videos/${video.id}`)
-                span.video-mixin__title #{video.title.length > 10 ? `${video.title.slice(0, 12)}...` : video.title}
+                span.video-mixin__title #{video.title.length > 70 ? `${video.title.slice(0, 68)}...` : video.title}
             include ../partials/video-meta.pug
