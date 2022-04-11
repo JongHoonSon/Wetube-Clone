@@ -16,7 +16,10 @@ const userSchema = new mongoose.Schema({
   comments: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
   ],
-  videos: [
+  uploadVideos: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Video" },
+  ],
+  likeVideos: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Video" },
   ],
 });
