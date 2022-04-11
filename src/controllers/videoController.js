@@ -196,18 +196,38 @@ export const registerVideoView = async (req, res) => {
 export const registerVideoLike = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
+  const loggedInUser = req.session.user;
   if (!video) {
     req.flash("error", "Video not found.");
     return res.sendStatus(404);
   }
-  if (!req.session.loggedIn) {
+  if (!loggedInUser) {
+    console.log("please login");
     req.flash("error", "Please login first.");
-    return res.status(400).render("users/login", { pageTitle: "Login" });
+    return res.status(403).redirect("/login");
   }
-  console.log("-----------------like video----------------");
-  console.log(video);
-  console.log("-----------------like user-----------------");
-  console.log(req.session.user);
 
-  return res.sendStatus(200);
+  const user = await User.findById(loggedInUser._id);
+  if (!user) {
+    req.flash("error", "User not found.");
+    return res.sendStatus(404);
+  }
+
+  if (String(video.likedUser).includes(String(user._id))) {
+    console.log("Like Added!!!");
+    video.likedUser = video.likedUser.filter(
+      (likedUser) => String(likedUser) !== String(user._id)
+    );
+    user.likeVideos = user.likeVideos.filter(
+      (likeVideo) => String(likeVideo) !== String(video._id)
+    );
+  } else {
+    console.log("Like Canceled!!!");
+    video.likedUser.push(user);
+    user.likeVideos.push(video);
+  }
+
+  video.save();
+  user.save();
+  return res.status(200).redirect(`/videos/${id}`);
 };
