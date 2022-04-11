@@ -31,7 +31,7 @@ block content
                     span.video-mixin
                         div.video-mixin__data
                             include ../partials/video-meta.pug
-                div.video__onwer__option
+                div.video__option
                     a(href=`${video.id}/like`)
                         i.fa-solid.fa-thumbs-up
                     if String(video.owner._id) === String(loggedInUser._id)
