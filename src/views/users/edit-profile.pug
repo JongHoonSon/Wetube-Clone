@@ -9,6 +9,9 @@ block content
             img(src=loggedInUser.avatarUrl, crossorigin).avatar#preview
         else
             img(src='/' + loggedInUser.avatarUrl, crossorigin).avatar#preview
+            
+    hr
+
     form(method="POST", enctype="multipart/form-data")
         label(for="avatar") Profile Image
         input(type="file", id="avatar", name="avatar", data-id=loggedInUser.avatarUrl accept="image/*").avatarUpload
@@ -24,6 +27,8 @@ block content
         if !loggedInUser.socialOnly
             div.edit-profile__password
                 a(href="change-password") Change Password &rarr;
+
+    hr
 
 block scripts
     script(src="/static/js/profile.js")

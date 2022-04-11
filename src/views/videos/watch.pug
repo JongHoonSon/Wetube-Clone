@@ -24,6 +24,8 @@ block content
                     div
                         span#fullScreen
                             i.fas.fa-expand
+
+            hr
             
             div.video__data
                 div
@@ -40,6 +42,9 @@ block content
                             i.fa-solid.fa-pen-to-square
                         a(href=`${video.id}/delete`).deleteBtn
                             i.fa-solid.fa-trash-can
+
+            hr
+
         div.video__comment__section
             if loggedIn
                 div.video__add-comments
@@ -72,7 +77,7 @@ block content
                                         i.fa-solid.fa-check
                                     button.video__comment__edit-cancel-btn.hidden
                                         i.fa-solid.fa-xmark
-
+                                
 block scripts
     script(src="/static/js/watch.js") 
     script(src="/static/js/main.js") 

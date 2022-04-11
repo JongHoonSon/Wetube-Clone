@@ -5,6 +5,9 @@ block content
         div.upload__video
             video#preview
             button#actionBtn.social__btn Start Recording
+            
+        hr
+
         if errorMessage
             span=errorMessage
         form(method="POST", enctype="multipart/form-data")
@@ -19,6 +22,8 @@ block content
             label(for="hashtags") Hashtags
             input(type="text", id="hashtags", name="hashtags")
             input(type="submit", value="Upload Video")
+
+        hr
 
 block scripts
     script(src="/static/js/recorder.js") 
