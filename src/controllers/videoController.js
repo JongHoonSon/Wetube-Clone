@@ -208,4 +208,6 @@ export const registerVideoLike = async (req, res) => {
   console.log(video);
   console.log("-----------------like user-----------------");
   console.log(req.session.user);
+
+  return res.sendStatus(200);
 };
