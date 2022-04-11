@@ -141,6 +141,9 @@ export const deleteVideo = async (req, res) => {
 
   await Video.findByIdAndDelete(id);
 
+  console.log("After Delete : ", video.fileUrl);
+  console.log("After Delete : ", video.thumbUrl);
+
   if (res.locals.isHeroku) {
     deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.fileUrl);
     deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
@@ -151,6 +154,10 @@ export const deleteVideo = async (req, res) => {
 };
 
 const deleteFileFromS3 = (bucketName, filePath, fileUrl) => {
+  console.log("bucketName", bucketName);
+  console.log("filePath", filePath);
+  console.log("fileUrl", fileUrl);
+
   const delfileUrl = fileUrl.split("/");
   const delFileName = filePath + delfileUrl[delfileUrl.length - 1];
   s3.deleteObject(
