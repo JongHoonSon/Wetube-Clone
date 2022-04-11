@@ -5,6 +5,8 @@ import { async } from "regenerator-runtime";
 import { S3 } from "aws-sdk";
 import { s3 } from "../middlewares";
 
+const A3_BUCKET_NAME = "jh-wetube";
+
 export const home = async (req, res) => {
   const videos = await Video.find({})
     .sort({ createdAt: "desc" })
@@ -53,7 +55,9 @@ export const postVideoEdit = async (req, res) => {
   const {
     user: { _id },
   } = req.session;
+  const newThumb = req.files.thumb;
   const { title, description, hashtags } = req.body;
+
   const video = await Video.exists({ _id: id }).populate("owner");
   if (!video) {
     req.flash("error", "Video not found.");
@@ -63,10 +67,18 @@ export const postVideoEdit = async (req, res) => {
     req.flash("error", "You are not the the owner of the video.");
     return res.status(403).redirect("/");
   }
+  if (newThumb) {
+    deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
+  }
   await Video.findByIdAndUpdate(id, {
     title,
     description,
     hashtags: Video.formatHashtags(hashtags),
+    thumbUrl: newThumb
+      ? res.locals.isHeroku
+        ? newThumb[0].location
+        : newThumb[0].path
+      : video.thumbUrl,
   });
   req.flash("success", "Changes saved.");
   return res.redirect(`/videos/${id}`);
@@ -128,30 +140,32 @@ export const deleteVideo = async (req, res) => {
   });
 
   if (res.locals.isHeroku) {
-    const videoUrl = video.fileUrl.split("/");
-    const thumbUrl = video.thumbUrl.split("/");
-    const delVideoFileName = "videos/" + videoUrl[videoUrl.length - 1];
-    const delThumbFileName = "videos/" + thumbUrl[thumbUrl.length - 1];
-    const params = {
-      Bucket: "jh-wetube",
-      Delete: {
-        Objects: [{ Key: delVideoFileName }, { Key: delThumbFileName }],
-      },
-    };
-    s3.deleteObjects(params, function (err, data) {
-      if (err) {
-        console.log("aws video delete error");
-        console.log(err, err.stack);
-        return res.redirect("/");
-      } else {
-        console.log("aws video delete success" + data);
-      }
-    });
+    deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.fileUrl);
+    deleteFileFromS3(A3_BUCKET_NAME, "videos/", video.thumbUrl);
   }
 
   await Video.findByIdAndDelete(id);
   req.flash("success", "Delete succeed.");
   return res.redirect("/");
+};
+
+const deleteFileFromS3 = (bucketName, filePath, fileUrl) => {
+  const delfileUrl = fileUrl.split("/");
+  const delFileName = filePath + delfileUrl[delfileUrl.length - 1];
+  s3.deleteObject(
+    {
+      Bucket: bucketName,
+      Key: delFileName,
+    },
+    (err, data) => {
+      if (err) {
+        console.log("AWS S3 Delete obejct filed");
+      } else {
+        console.log("AWS S3 Delete obejct succeed");
+      }
+      console.log("Object Info : " + delFileName);
+    }
+  );
 };
 
 export const search = async (req, res) => {
