@@ -33,8 +33,10 @@ videoRouter
   .route("/:id([0-9a-f]{24})/delete")
   .all(protectorMiddleware)
   .get(deleteVideo);
-videoRouter
-  .all(protectorMiddleware)
-  .post("/:id([0-9a-f]{24})/like", registerVideoLike);
+videoRouter.post(
+  "/:id([0-9a-f]{24})/like",
+  protectorMiddleware,
+  registerVideoLike
+);
 
 export default videoRouter;
