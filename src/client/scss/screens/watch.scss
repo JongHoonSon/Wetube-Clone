@@ -12,9 +12,10 @@
   }
 
   .video__data {
+    height: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 30px 10px;
     .video__title {
       font-size: 20px;
@@ -22,8 +23,10 @@
       margin-bottom: 10px;
     }
     .video__option {
-      padding: 0 30px;
-      height: 100px;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       i {
         margin: 0px 10px;
         font-size: 20px;
