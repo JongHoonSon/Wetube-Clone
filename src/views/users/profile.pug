@@ -11,7 +11,7 @@ block content
 
     hr
 
-    span.profile__video__category My Videos
+    span.profile__video__category Videos uploaded By #{user.name}
     div.video-grid
         each video in user.uploadVideos.reverse()
             +video(video)
@@ -20,7 +20,7 @@ block content
 
     hr
 
-    span.profile__video__category Video I Liked
+    span.profile__video__category Videos that #{user.name} liked
     div.video-grid
         each video in user.likeVideos.reverse()
             +video(video)
