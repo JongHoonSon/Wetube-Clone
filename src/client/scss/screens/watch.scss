@@ -20,11 +20,11 @@
     .video__title {
       font-size: 20px;
       margin-left: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 30px;
     }
     .video__content {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: flex-start;
       .video__info {
         display: flex;
